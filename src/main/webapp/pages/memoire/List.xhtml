@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MemoireListForm">  
+        <p:dataTable id="data" var="car" value="#{memoireBean.memoires}"
+                     selectionMode="single" selection="#{memoireBean.memoire}"
+                     rowKey="#{car.id}"
+                     paginator="true"
+                     rows="10"
+                     rowsPerPageTemplate="05,10"
+                     emptyMessage="aucun element"
+                     rowIndexVar="index">  
+
+            <p:column >
+                <f:facet name="header">
+                    <h:outputText value="No"/>
+                </f:facet>
+                <h:outputText value="#{index+1}"/>
+            </p:column>
+            <p:column headerText="Nom fichier">  
+                <h:outputText value="#{car.nom_fichier}" />  
+            </p:column> 
+            <p:column headerText="Auteur ">  
+                <h:outputText value="#{car.auteur}" />  
+            </p:column> 
+            <p:column headerText="Date soutenance">  
+                <h:outputText value="#{car.date_soutenance}" />  
+            </p:column> 
+            <p:column headerText="Description en français">  
+                <h:outputText value="#{car.descriptionFr}" />  
+            </p:column> 
+            <p:column headerText="Description en anglais">  
+                <h:outputText value="#{car.descriptionEn}" />  
+            </p:column> 
+            <p:column headerText="Cathegorie">  
+                <h:outputText value="#{car.cathegorie}" />  
+            </p:column> 
+             <p:column headerText="Niveau">  
+                 <h:outputText value="#{car.niveau}" />  
+            </p:column> 
+            <f:facet name="footer">
+                <p:commandButton id="createButton" icon="ui-icon-plus"   value="Ajouter"   oncomplete="MemoireCreateDialog.show()"/>
+                <p:commandButton id="downloadLink" value="Télécharger" ajax="false" icon="ui-icon-arrowthichk-s" disabled="#{empty memoireBean.memoire}"> 
+                    <p:fileDownload value="#{memoireBean.fileContent}" /> 
+                </p:commandButton> 
+                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{memoireBean.deleteMemoire}" update=":growl,data" disabled="#{empty memoireBean.memoire}"/>
+            </f:facet>
+        </p:dataTable>  
+
+    </h:form>
+
+</ui:composition>

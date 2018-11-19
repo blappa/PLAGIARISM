@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AutorisationViewDlg" widgetVar="AutorisationViewDialog" modal="true" resizable="false" appendToBody="true" header="Autorisation">
+
+            <h:form id="AutorisationViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departementBean.departement != null}">
+
+                      
+                        <h:outputText value="Droit"/>
+                        <h:outputText value="#{autorisationBean.autorisation.droit}" title="#{autorisationBean.autorisation.droit}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="Fermer" onclick="AutorisationViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

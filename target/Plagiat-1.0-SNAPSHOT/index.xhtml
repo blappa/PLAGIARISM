@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Authentification</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet library="css" name="styles.css" />
+    </h:head>
+    <h:body >
+        <div style="text-align: center; padding: 30px 0px  0px 80px  "  >
+            <div style="font: normal small-caps 680% monospace  ;" align="center" >PLAGISS DETECT </div>
+            <!--                        <p:graphicImage value="/resources/images/sigle.PNG" alt="entete" width="55%" height="50"/> -->
+        </div>
+        <p:panel id="loginform" header="Veuillez entrer vos parametres de connection " >
+            <h:form   >
+                <h:panelGrid columns="2"  cellpadding="1">
+                    <h:outputLabel id="name" for="nom" value="Nom :" />
+                    <p:inputText id="nom"  value="#{utilisateurBean.current.login}" style="width: 190px;"/>
+
+                    <h:outputLabel id="pwd" for="passwd" value="Mot de passe: " />
+                    <p:password id="passwd" required="true" value="#{utilisateurBean.current.password}" style="width: 190px;" />
+
+                    <p:tooltip for="passwd" value="mot de passe" showEffect="clip" hideEffect="explode" />
+                </h:panelGrid>
+                <p:commandButton  ajax="false" value="Connexion" onclick="submit();"  action="#{utilisateurBean.login}"  style=" color: royalblue; text-transform: inherit ">
+                    <f:setPropertyActionListener target="#{utilisateurBean.current}" value="#{utilisateurBean.current}"/>
+                </p:commandButton>
+
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+

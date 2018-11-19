@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CathegorieCreateDlg" widgetVar="CathegorieCreateDialog" modal="true" resizable="false" appendToBody="true" header="Créer une cathegorie">
+
+            <h:form id="CathegorieCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" >
+
+                        <p:outputLabel value="Nom cathegorie" for="nom" />
+                        <p:inputText id="nom" value="#{cathegorieBean.cathegorie.nom}" title="cathegorie" required="true"/>
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cathegorieBean.saveCathegorie}" value="Enregistrer" update="display,:CathegorieListForm:datalist,:growl" oncomplete="CathegorieCreateDialog.hide();"/>
+                    <p:commandButton value="Fermer" onclick="CathegorieCreateDialog.hide();"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

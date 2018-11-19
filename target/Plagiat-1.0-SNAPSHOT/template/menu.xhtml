@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+
+    <ui:composition>
+        <h:form >
+            <p:menubar >  
+                <p:menuitem value="Accueil"  icon="ui-icon-home" url="/pages/accueil.xhtml"  /> 
+                <p:submenu label="Utilisateur">
+                    <p:menuitem value="Utilisateur"  url="/pages/utilisateur/index.xhtml" /> 
+                    <p:menuitem value="Ajouter autorisation"  url="/pages/autorisation/index.xhtml" /> 
+                </p:submenu>
+                <p:menuitem value="Etablissement"  url="/pages/etablissement/index.xhtml"/> 
+                <p:menuitem value="Departement"  url="/pages/departement/index.xhtml"/>
+                <p:submenu label="Memoire">
+                    <p:menuitem value="Archivage" url="/pages/memoire/index.xhtml"/>
+                    <p:menuitem value="Cathegorie" url="/pages/memoire/cathegorie/index.xhtml"/>
+                    <p:menuitem value="Rechercher" url="/pages/memoire/recherche/Search.xhtml"/>
+                </p:submenu>
+                <p:menuitem value="Plagiat"/> 
+                <p:menuitem value="Aide" icon="ui-icon-help"  url="/pages/aides/aides.xhtml"/> 
+            </p:menubar> 
+        </h:form>  
+    </ui:composition>
+
+</html>

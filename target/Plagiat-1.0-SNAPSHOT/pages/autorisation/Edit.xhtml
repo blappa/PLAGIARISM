@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AutorisationEditDlg" widgetVar="AutorisationEditDialog" modal="true" resizable="false" appendToBody="true" header="Modifier une autorisation">
+
+            <h:form id="AutorisationEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{autorisationBean.autorisation != null}">
+
+                        <p:outputLabel value="Droit" for="nom" />
+                        <p:inputText id="nom" value="#{autorisationBean.autorisation.droit}" title="droit" required="true"/>
+                        
+                    </p:panelGrid>
+                    <p:panel visible="false">
+                        <p:inputText id="id" value="#{autorisationBean.autorisation.id}" />
+                    </p:panel>
+                    <p:commandButton actionListener="#{autorisationBean.updateAutorisation}" value="Enregistrer" update="display,:AutorisationListForm:datalist,:growl" oncomplete="AutorisationEditDialog.hide();"/>
+                    <p:commandButton value="Fermer" onclick="DepartementEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

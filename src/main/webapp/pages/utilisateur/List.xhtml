@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UtilisateurListForm">
+      
+            <p:panel header="Liste des utilisateurs">
+
+                <p:dataTable id="datalist" value="#{utilisateurBean.utilisateurs}" var="item"
+                             selectionMode="single" selection="#{utilisateurBean.utilisateur}"
+                             rowKey="#{item.id}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="5,10"
+                             emptyMessage="aucun element"
+                             rowIndexVar="index"
+                             >
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="No"/>
+                        </f:facet>
+                        <h:outputText value="#{index+1}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.nom}" filterBy="#{item.nom}">
+                        <f:facet name="header">
+                            <h:outputText value="Nom"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nom}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.login}" filterBy="#{item.login}">
+                        <f:facet name="header">
+                            <h:outputText value="Login"/>
+                        </f:facet>
+                        <h:outputText value="#{item.login}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.departement.etablissement.sigle}" filterBy="#{item.departement.etablissement.sigle}">
+                        <f:facet name="header">
+                            <h:outputText value="Etablissement"/>
+                        </f:facet>
+                        <h:outputText value="#{item.departement.etablissement.sigle}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.departement.sigle}" filterBy="#{item.departement.sigle}">
+                        <f:facet name="header">
+                            <h:outputText value="Departement"/>
+                        </f:facet>
+                        <h:outputText value="#{item.departement.sigle}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.autorisation.droit}" filterBy="#{item.autorisation.droit}">
+                        <f:facet name="header">
+                            <h:outputText value="Droit"/>
+                        </f:facet>
+                        <h:outputText value="#{item.autorisation.droit}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Ajouter"   oncomplete="UtilisateurCreateDialog.show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="Afficher" update=":UtilisateurViewForm" oncomplete="UtilisateurViewDialog.show()" disabled="#{empty utilisateurBean.utilisateur}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":UtilisateurEditForm:display" oncomplete="UtilisateurEditDialog.show()" disabled="#{empty utilisateurBean.utilisateur}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{utilisateurBean.deleteUtilisateur}" update=":growl,datalist" disabled="#{empty utilisateurBean.utilisateur}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+
+    </h:form>
+
+</ui:composition>

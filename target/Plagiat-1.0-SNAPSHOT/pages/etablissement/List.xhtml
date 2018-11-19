@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EtablissementListForm">
+        
+            <p:panel header="Liste des etablissements">
+
+                <p:dataTable id="datalist" value="#{etablissementBean.etablissements}" var="item"
+                             selectionMode="single" selection="#{etablissementBean.etablissement}"
+                             rowKey="#{item.id}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="5,10"
+                             emptyMessage="aucun element"
+                             rowIndexVar="index"
+                             >
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="No"/>
+                        </f:facet>
+                        <h:outputText value="#{index+1}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.nom_etab}" filterBy="#{item.nom_etab}">
+                        <f:facet name="header">
+                            <h:outputText value="Nom"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nom_etab}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.sigle}" filterBy="#{item.sigle}">
+                        <f:facet name="header">
+                            <h:outputText value="Sigle"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sigle}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Ajouter"   oncomplete="EtablissementCreateDialog.show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="Afficher" update=":EtablissementViewForm" oncomplete="EtablissementViewDialog.show()" disabled="#{empty etablissementBean.etablissement}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":EtablissementEditForm:display" oncomplete="EtablissementEditDialog.show()" disabled="#{empty etablissementBean.etablissement}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{etablissementBean.deleteEtablissement}" update=":growl,datalist" disabled="#{empty etablissementBean.etablissement}"/>
+                    </f:facet>
+                </p:dataTable>
+
+            </p:panel>
+
+    </h:form>
+
+</ui:composition>

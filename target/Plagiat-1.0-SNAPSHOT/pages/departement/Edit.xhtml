@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartementEditDlg" widgetVar="DepartementEditDialog" modal="true" resizable="false" appendToBody="true" header="Modifier departement">
+
+            <h:form id="DepartementEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departementBean.departement != null}">
+
+                        <p:outputLabel value="Nom" for="nom" />
+                        <p:inputText id="nom" value="#{departementBean.departement.nom}" title="nom" required="true"/>
+
+                        <p:outputLabel value="Etablissement" for="etab" />
+                        <p:selectOneMenu id="etab" value="#{departementBean.etablissementId}" required="true" requiredMessage="l'établissement est obligatoire" style="width: 82%">
+                            <f:selectItems value="#{etablissementBean.etablissements}"
+                                           var="etablissementIdItem"
+                                           itemValue="#{etablissementIdItem.id}"
+                                           itemLabel="#{etablissementIdItem.sigle}"
+                                           />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Sigle" for="sigle" />
+                        <p:inputText id="sigle" value="#{departementBean.departement.sigle}" title="sigle"/>
+                    </p:panelGrid>
+                    <p:panel visible="false">
+                        <p:inputText id="id" value="#{departementBean.departement.id}" />
+                    </p:panel>
+                    <p:commandButton actionListener="#{departementBean.updateDepartement}" value="Enregistrer" update="display,:DepartementListForm:datalist,:growl" oncomplete="DepartementEditDialog.hide();"/>
+                    <p:commandButton value="Fermer" onclick="DepartementEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

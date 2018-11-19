@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition>
+
+        <p:dialog id="MemoireCreateDlg" widgetVar="MemoireCreateDialog" modal="true" resizable="false" appendToBody="true" header="Uplaoder un memoire">
+
+
+            <h:form id="MemoireCreateForm" enctype="multipart/form-data"> 
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Auteur" for="nom" />
+                        <p:inputText id="nom" value="#{memoireBean.memoire.auteur}" title="nom" />
+                        
+                         <p:outputLabel value="Niveau" for="niv" />
+                         <p:inputText id="niv" value="#{memoireBean.memoire.niveau}" title="niveau" />
+                        
+                        <p:outputLabel for="date"  value="Date soutenance"/>
+                        <p:calendar id="date"  value="#{memoireBean.memoire.date_soutenance}" pattern="dd/MM/yyyy" showOn="button" style="width: 200px;" />
+
+                        <p:outputLabel value="Cathegorie" for="cat" />
+                        <p:selectOneMenu id="cat" value="#{memoireBean.cathegorieId}" required="true" requiredMessage="l'établissement est obligatoire" style="width: 82%">
+                            <f:selectItems value="#{cathegorieBean.cathegories}"
+                                           var="cathegorieIdItem"
+                                           itemValue="#{cathegorieIdItem.id}"
+                                           itemLabel="#{cathegorieIdItem.nom}"
+                                           />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Chef departement" for="chefD" />
+                        <p:selectOneMenu id="chefD" value="#{memoireBean.utilisateurId}" required="true" requiredMessage="l'établissement est obligatoire" style="width: 82%">
+                            <f:selectItems value="#{utilisateurBean.utilisateurs}"
+                                           var="utilisateurIdItem"
+                                           itemValue="#{utilisateurIdItem.id}"
+                                           itemLabel="#{utilisateurIdItem.nom}"
+                                           />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Description en français" for="descripFr" />
+                        <p:inputTextarea id="descripFr" value="#{memoireBean.memoire.descriptionFr}" title="description" style="width: 200px;" />
+
+                        <p:outputLabel value="Description en anglais" for="descripEn" />
+                        <p:inputTextarea id="descripEn" value="#{memoireBean.memoire.descriptionEn}" style="width: 200px;" />
+
+                        <p:growl id="messages" showDetail="true"/>
+                        <p:fileUpload fileUploadListener="#{memoireBean.handleFileUpload}"  showButtons="false"
+                                      mode="advanced"   
+                                      update="messages"  
+                                      sizeLimit="10000000" 
+                                      invalidFileMessage="ce fichier n\'est pas de type pdf"
+                                      label="Cliquer ici pour choisir un fichier"
+                                      allowTypes="/(\.|\/)(pdf)$/" /> 
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{memoireBean.saveMemoire}" value="Enregistrer" update="display,:MemoireListForm:data,:growl" oncomplete="MemoireCreateDialog.hide();"/>
+                    <p:commandButton value="Fermer" onclick="MemoireCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form> 
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

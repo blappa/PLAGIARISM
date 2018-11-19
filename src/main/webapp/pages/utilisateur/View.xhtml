@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UtilisateurViewDlg" widgetVar="UtilisateurViewDialog" modal="true" resizable="false" appendToBody="true" header="Profil utilisateur">
+
+            <h:form id="UtilisateurViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{utilisateurBean.utilisateur != null}">
+
+                      
+                        <h:outputText value="Nom "/>
+                        <h:outputText value="#{utilisateurBean.utilisateur.nom}" title="#{utilisateurBean.utilisateur.nom}"/>
+
+                        <h:outputText value="Login "/>
+                        <h:outputText value="#{utilisateurBean.utilisateur.login}" title="#{utilisateurBean.utilisateur.login}"/>
+
+                        <h:outputText value="Etablissement "/>
+                        <h:outputText value="#{utilisateurBean.utilisateur.departement.etablissement.sigle}" title="#{utilisateurBean.utilisateur.departement.etablissement.sigle}"/>
+
+                        <h:outputText value="Departement "/>
+                        <h:outputText value="#{utilisateurBean.utilisateur.departement.sigle}" title="#{utilisateurBean.utilisateur.departement.sigle}"/>
+
+                        <h:outputText value="Status"/>
+                        <h:outputText value="#{utilisateurBean.utilisateur.autorisation.droit}" title="#{utilisateurBean.utilisateur.autorisation.droit}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Fermer" onclick="UtilisateurViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

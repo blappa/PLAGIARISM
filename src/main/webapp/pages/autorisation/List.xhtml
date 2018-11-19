@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AutorisationListForm">
+      
+            <p:panel header="Liste des autorisations">
+
+                <p:dataTable id="datalist" value="#{autorisationBean.autorisations}" var="item"
+                             selectionMode="single" selection="#{autorisationBean.autorisation}"
+                             rowKey="#{item.id}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="5,10"
+                             emptyMessage="aucun element"
+                             rowIndexVar="index"
+                             >
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="No"/>
+                        </f:facet>
+                        <h:outputText value="#{index+1}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.droit}" filterBy="#{item.droit}">
+                        <f:facet name="header">
+                            <h:outputText value="Droit"/>
+                        </f:facet>
+                        <h:outputText value="#{item.droit}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Ajouter"   oncomplete="AutorisationCreateDialog.show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="Afficher" update=":AutorisationViewForm" oncomplete="AutorisationViewDialog.show()" disabled="#{empty autorisationBean.autorisation}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":AutorisationEditForm:display" oncomplete="AutorisationEditDialog.show()" disabled="#{empty autorisationBean.autorisation}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{autorisationBean.deleteAutorisation}" update=":growl,datalist" disabled="#{empty autorisationBean.autorisation}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+
+    </h:form>
+
+</ui:composition>
